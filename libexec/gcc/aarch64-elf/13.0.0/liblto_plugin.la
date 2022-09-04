@@ -38,4 +38,4 @@ dlopen=''
 dlpreopen=''
 
 # Directory that this library needs to be installed in:
-libdir='/home/cygnus/gcc-build/../gcc-arm64/libexec/gcc/aarch64-elf/13.0.0'
+libdir='/home/cygnus/gcc-builds/gcc-build/../gcc-arm64/libexec/gcc/aarch64-elf/13.0.0'
