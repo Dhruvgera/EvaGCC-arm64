@@ -1,6 +1,4 @@
-/* Definitions for core files and libthread_db.  Generic Linux version.
-   Copyright (C) 1996-2020 Free Software Foundation, Inc.
-
+/* Copyright (C) 2001-2018 Free Software Foundation, Inc.
    This file is part of the GNU C Library.
 
    The GNU C Library is free software; you can redistribute it and/or
@@ -15,7 +13,7 @@
 
    You should have received a copy of the GNU Lesser General Public
    License along with the GNU C Library; if not, see
-   <https://www.gnu.org/licenses/>.  */
+   <http://www.gnu.org/licenses/>.  */
 
 #ifndef _SYS_PROCFS_H
 #define _SYS_PROCFS_H	1
@@ -34,16 +32,36 @@
 #include <sys/types.h>
 #include <sys/user.h>
 
-/* bits/procfs.h, provided by each architecture, must define
-   elf_gregset_t, elf_fpregset_t and any other architecture-specific
-   types needed.  */
-#include <bits/procfs.h>
-
-/* bits/procfs-id.h must define __pr_uid_t and __pr_gid_t, the types
-   of pr_uid and pr_gid.  */
-#include <bits/procfs-id.h>
-
 __BEGIN_DECLS
+
+/* Type for a general-purpose register.  */
+#ifdef __x86_64__
+__extension__ typedef unsigned long long elf_greg_t;
+#else
+typedef unsigned long elf_greg_t;
+#endif
+
+/* And the whole bunch of them.  We could have used `struct
+   user_regs_struct' directly in the typedef, but tradition says that
+   the register set is an array, which does have some peculiar
+   semantics, so leave it that way.  */
+#define ELF_NGREG (sizeof (struct user_regs_struct) / sizeof(elf_greg_t))
+typedef elf_greg_t elf_gregset_t[ELF_NGREG];
+
+#ifndef __x86_64__
+/* Register set for the floating-point registers.  */
+typedef struct user_fpregs_struct elf_fpregset_t;
+
+/* Register set for the extended floating-point registers.  Includes
+   the Pentium III SSE registers in addition to the classic
+   floating-point stuff.  */
+typedef struct user_fpxregs_struct elf_fpxregset_t;
+#else
+/* Register set for the extended floating-point registers.  Includes
+   the Pentium III SSE registers in addition to the classic
+   floating-point stuff.  */
+typedef struct user_fpregs_struct elf_fpregset_t;
+#endif
 
 /* Signal info.  */
 struct elf_siginfo
@@ -52,6 +70,7 @@ struct elf_siginfo
     int si_code;			/* Extra code.  */
     int si_errno;			/* Errno.  */
   };
+
 
 /* Definitions to generate Intel SVR4-like core files.  These mostly
    have the same names as the SVR4 types with "elf_" tacked on the
@@ -88,13 +107,19 @@ struct elf_prpsinfo
     char pr_zomb;			/* Zombie.  */
     char pr_nice;			/* Nice val.  */
     unsigned long int pr_flag;		/* Flags.  */
-    __pr_uid_t pr_uid;
-    __pr_gid_t pr_gid;
+#if __WORDSIZE == 32
+    unsigned short int pr_uid;
+    unsigned short int pr_gid;
+#else
+    unsigned int pr_uid;
+    unsigned int pr_gid;
+#endif
     int pr_pid, pr_ppid, pr_pgrp, pr_sid;
     /* Lots missing */
     char pr_fname[16];			/* Filename of executable.  */
     char pr_psargs[ELF_PRARGSZ];	/* Initial part of arg list.  */
   };
+
 
 /* The rest of this file provides the types for emulation of the
    Solaris <proc_service.h> interfaces that should be implemented by
@@ -103,11 +128,9 @@ struct elf_prpsinfo
 /* Addresses.  */
 typedef void *psaddr_t;
 
-#include <bits/procfs-prregset.h>
-
 /* Register sets.  Linux has different names.  */
-typedef __prgregset_t prgregset_t;
-typedef __prfpregset_t prfpregset_t;
+typedef elf_gregset_t prgregset_t;
+typedef elf_fpregset_t prfpregset_t;
 
 /* We don't have any differences between processes and threads,
    therefore have only one PID type.  */
@@ -119,8 +142,4 @@ typedef struct elf_prpsinfo prpsinfo_t;
 
 __END_DECLS
 
-/* On some architectures, provide other-ABI variants of the above
-   types.  */
-#include <bits/procfs-extra.h>
-
-#endif	/* sys/procfs.h.  */
+#endif	/* sys/procfs.h */

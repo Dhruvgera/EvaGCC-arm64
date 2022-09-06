@@ -1,6 +1,5 @@
 /****************************************************************************
- * Copyright 2020 Thomas E. Dickey                                          *
- * Copyright 1998-2001,2009 Free Software Foundation, Inc.                  *
+ * Copyright (c) 1998-2008,2009 Free Software Foundation, Inc.              *
  *                                                                          *
  * Permission is hereby granted, free of charge, to any person obtaining a  *
  * copy of this software and associated documentation files (the            *
@@ -40,13 +39,13 @@
  * as ^?. Printable characters are displayed as is.
  */
 
-/* $Id: unctrl.h.in,v 1.12 2020/02/02 23:34:34 tom Exp $ */
+/* $Id: unctrl.h.in,v 1.11 2009/04/18 21:00:52 tom Exp $ */
 
 #ifndef NCURSES_UNCTRL_H_incl
 #define NCURSES_UNCTRL_H_incl	1
 
 #undef  NCURSES_VERSION
-#define NCURSES_VERSION "6.2"
+#define NCURSES_VERSION "6.1"
 
 #ifdef __cplusplus
 extern "C" {
@@ -57,7 +56,7 @@ extern "C" {
 #undef unctrl
 NCURSES_EXPORT(NCURSES_CONST char *) unctrl (chtype);
 
-#if 1
+#if 0
 NCURSES_EXPORT(NCURSES_CONST char *) NCURSES_SP_NAME(unctrl) (SCREEN*, chtype);
 #endif
 

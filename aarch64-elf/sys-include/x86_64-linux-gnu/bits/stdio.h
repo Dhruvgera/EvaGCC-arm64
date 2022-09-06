@@ -1,5 +1,5 @@
 /* Optimizing macros and inline functions for stdio functions.
-   Copyright (C) 1998-2020 Free Software Foundation, Inc.
+   Copyright (C) 1998-2018 Free Software Foundation, Inc.
    This file is part of the GNU C Library.
 
    The GNU C Library is free software; you can redistribute it and/or
@@ -14,10 +14,7 @@
 
    You should have received a copy of the GNU Lesser General Public
    License along with the GNU C Library; if not, see
-   <https://www.gnu.org/licenses/>.  */
-
-#ifndef _BITS_STDIO_H
-#define _BITS_STDIO_H 1
+   <http://www.gnu.org/licenses/>.  */
 
 #ifndef _STDIO_H
 # error "Never include <bits/stdio.h> directly; use <stdio.h> instead."
@@ -36,7 +33,7 @@
 # if !(__USE_FORTIFY_LEVEL > 0 && defined __fortify_function)
 /* Write formatted output to stdout from argument list ARG.  */
 __STDIO_INLINE int
-vprintf (const char *__restrict __fmt, __gnuc_va_list __arg)
+vprintf (const char *__restrict __fmt, _G_va_list __arg)
 {
   return vfprintf (stdout, __fmt, __arg);
 }
@@ -46,7 +43,7 @@ vprintf (const char *__restrict __fmt, __gnuc_va_list __arg)
 __STDIO_INLINE int
 getchar (void)
 {
-  return getc (stdin);
+  return _IO_getc (stdin);
 }
 
 
@@ -55,7 +52,7 @@ getchar (void)
 __STDIO_INLINE int
 fgetc_unlocked (FILE *__fp)
 {
-  return __getc_unlocked_body (__fp);
+  return _IO_getc_unlocked (__fp);
 }
 # endif /* misc */
 
@@ -65,14 +62,14 @@ fgetc_unlocked (FILE *__fp)
 __STDIO_INLINE int
 getc_unlocked (FILE *__fp)
 {
-  return __getc_unlocked_body (__fp);
+  return _IO_getc_unlocked (__fp);
 }
 
 /* This is defined in POSIX.1:1996.  */
 __STDIO_INLINE int
 getchar_unlocked (void)
 {
-  return __getc_unlocked_body (stdin);
+  return _IO_getc_unlocked (stdin);
 }
 # endif	/* POSIX */
 
@@ -81,7 +78,7 @@ getchar_unlocked (void)
 __STDIO_INLINE int
 putchar (int __c)
 {
-  return putc (__c, stdout);
+  return _IO_putc (__c, stdout);
 }
 
 
@@ -90,7 +87,7 @@ putchar (int __c)
 __STDIO_INLINE int
 fputc_unlocked (int __c, FILE *__stream)
 {
-  return __putc_unlocked_body (__c, __stream);
+  return _IO_putc_unlocked (__c, __stream);
 }
 # endif /* misc */
 
@@ -100,21 +97,21 @@ fputc_unlocked (int __c, FILE *__stream)
 __STDIO_INLINE int
 putc_unlocked (int __c, FILE *__stream)
 {
-  return __putc_unlocked_body (__c, __stream);
+  return _IO_putc_unlocked (__c, __stream);
 }
 
 /* This is defined in POSIX.1:1996.  */
 __STDIO_INLINE int
 putchar_unlocked (int __c)
 {
-  return __putc_unlocked_body (__c, stdout);
+  return _IO_putc_unlocked (__c, stdout);
 }
 # endif	/* POSIX */
 
 
 # ifdef	__USE_GNU
 /* Like `getdelim', but reads up to a newline.  */
-__STDIO_INLINE __ssize_t
+__STDIO_INLINE _IO_ssize_t
 getline (char **__lineptr, size_t *__n, FILE *__stream)
 {
   return __getdelim (__lineptr, __n, '\n', __stream);
@@ -127,14 +124,14 @@ getline (char **__lineptr, size_t *__n, FILE *__stream)
 __STDIO_INLINE int
 __NTH (feof_unlocked (FILE *__stream))
 {
-  return __feof_unlocked_body (__stream);
+  return _IO_feof_unlocked (__stream);
 }
 
 /* Faster versions when locking is not required.  */
 __STDIO_INLINE int
 __NTH (ferror_unlocked (FILE *__stream))
 {
-  return __ferror_unlocked_body (__stream);
+  return _IO_ferror_unlocked (__stream);
 }
 # endif /* misc */
 
@@ -154,7 +151,7 @@ __NTH (ferror_unlocked (FILE *__stream))
 		       for (__cnt = (size_t) (size) * (size_t) (n);	      \
 			    __cnt > 0; --__cnt)				      \
 			 {						      \
-			   int __c = getc_unlocked (__stream);		      \
+			   int __c = _IO_getc_unlocked (__stream);	      \
 			   if (__c == EOF)				      \
 			     break;					      \
 			   *__ptr++ = __c;				      \
@@ -177,7 +174,7 @@ __NTH (ferror_unlocked (FILE *__stream))
 		       size_t __cnt;					      \
 		       for (__cnt = (size_t) (size) * (size_t) (n);	      \
 			    __cnt > 0; --__cnt)				      \
-			 if (putc_unlocked (*__ptr++, __stream) == EOF)	      \
+			 if (_IO_putc_unlocked (*__ptr++, __stream) == EOF)   \
 			   break;					      \
 		       ((size_t) (size) * (size_t) (n) - __cnt)		      \
 			/ (size_t) (size); })				      \
@@ -191,5 +188,3 @@ __NTH (ferror_unlocked (FILE *__stream))
 
 /* Define helper macro.  */
 #undef __STDIO_INLINE
-
-#endif /* bits/stdio.h.  */

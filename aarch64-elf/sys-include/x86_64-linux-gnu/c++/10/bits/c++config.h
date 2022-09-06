@@ -1639,14 +1639,14 @@ namespace std
 /* #undef _GLIBCXX_USE_PTHREADS_NUM_PROCESSORS_NP */
 
 /* Define if pthread_cond_clockwait is available in <pthread.h>. */
-#define _GLIBCXX_USE_PTHREAD_COND_CLOCKWAIT 1
+/* #undef _GLIBCXX_USE_PTHREAD_COND_CLOCKWAIT */
 
 /* Define if pthread_mutex_clocklock is available in <pthread.h>. */
-#define _GLIBCXX_USE_PTHREAD_MUTEX_CLOCKLOCK 1
+/* #undef _GLIBCXX_USE_PTHREAD_MUTEX_CLOCKLOCK */
 
 /* Define if pthread_rwlock_clockrdlock and pthread_rwlock_clockwrlock are
    available in <pthread.h>. */
-#define _GLIBCXX_USE_PTHREAD_RWLOCK_CLOCKLOCK 1
+/* #undef _GLIBCXX_USE_PTHREAD_RWLOCK_CLOCKLOCK */
 
 /* Define if POSIX read/write locks are available in <gthr.h>. */
 #define _GLIBCXX_USE_PTHREAD_RWLOCK_T 1

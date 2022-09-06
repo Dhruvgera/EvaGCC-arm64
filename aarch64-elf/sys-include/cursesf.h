@@ -1,7 +1,6 @@
 // * This makes emacs happy -*-Mode: C++;-*-
 /****************************************************************************
- * Copyright 2019,2020 Thomas E. Dickey                                     *
- * Copyright 1998-2012,2014 Free Software Foundation, Inc.                  *
+ * Copyright (c) 1998-2012,2014 Free Software Foundation, Inc.              *
  *                                                                          *
  * Permission is hereby granted, free of charge, to any person obtaining a  *
  * copy of this software and associated documentation files (the            *
@@ -32,7 +31,7 @@
  *   Author: Juergen Pfeifer, 1997                                          *
  ****************************************************************************/
 
-// $Id: cursesf.h,v 1.35 2020/02/02 23:34:34 tom Exp $
+// $Id: cursesf.h,v 1.32 2014/08/09 22:06:11 Adam.Jiang Exp $
 
 #ifndef NCURSES_CURSESF_H_incl
 #define NCURSES_CURSESF_H_incl 1
@@ -48,7 +47,7 @@ extern "C" {
 }
 //
 // -------------------------------------------------------------------------
-// The abstract base class for builtin and user defined Fieldtypes.
+// The abstract base class for buitin and user defined Fieldtypes.
 // -------------------------------------------------------------------------
 //
 class NCURSES_IMPEXP NCursesFormField; // forward declaration
@@ -152,7 +151,7 @@ public:
   {
   }
 
-  virtual ~NCursesFormField () THROWS(NCursesException);
+  virtual ~NCursesFormField ();
 
   // Duplicate the field at a new position
   inline NCursesFormField* dup(int first_row, int first_col)
@@ -471,7 +470,7 @@ public:
   {
   }
 
-  virtual ~NCursesForm() THROWS(NCursesException);
+  virtual ~NCursesForm();
 
   // Set the default attributes for the form
   virtual void setDefaultAttributes();
@@ -646,7 +645,7 @@ public:
 	OnError(::set_field_userptr(field, STATIC_CAST(void *)(p_UserData)));
   }
 
-  virtual ~NCursesUserField() THROWS(NCursesException) {};
+  virtual ~NCursesUserField() {};
 
   inline const T* UserData (void) const {
     return reinterpret_cast<const T*>(::field_userptr (field));
@@ -703,7 +702,7 @@ public:
 				     (p_UserData)));
   };
 
-  virtual ~NCursesUserForm() THROWS(NCursesException) {
+  virtual ~NCursesUserForm() {
   };
 
   inline T* UserData (void) {

@@ -1,4 +1,4 @@
-/* Copyright (C) 2011-2020 Free Software Foundation, Inc.
+/* Copyright (C) 2011-2018 Free Software Foundation, Inc.
    This file is part of the GNU C Library.
 
    The GNU C Library is free software; you can redistribute it and/or
@@ -13,7 +13,7 @@
 
    You should have received a copy of the GNU Lesser General Public
    License along with the GNU C Library; if not, see
-   <https://www.gnu.org/licenses/>.  */
+   <http://www.gnu.org/licenses/>.  */
 
 /*
  *      ISO C11 Standard: 7.28
@@ -28,13 +28,20 @@
 #define __need_size_t
 #include <stddef.h>
 
-#include <bits/types.h>
 #include <bits/types/mbstate_t.h>
 
-#ifndef __USE_ISOCXX11
-/* Define the 16-bit and 32-bit character types.  */
-typedef __uint_least16_t char16_t;
-typedef __uint_least32_t char32_t;
+#if defined __GNUC__ && !defined __USE_ISOCXX11
+/* Define the 16-bit and 32-bit character types.  Use the information
+   provided by the compiler.  */
+# if !defined __CHAR16_TYPE__ || !defined __CHAR32_TYPE__
+#  if defined __STDC_VERSION__ && __STDC_VERSION__ < 201000L
+#   error "<uchar.h> requires ISO C11 mode"
+#  else
+#   error "definitions of __CHAR16_TYPE__ and/or __CHAR32_TYPE__ missing"
+#  endif
+# endif
+typedef __CHAR16_TYPE__ char16_t;
+typedef __CHAR32_TYPE__ char32_t;
 #endif
 
 

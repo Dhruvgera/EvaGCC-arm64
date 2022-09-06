@@ -2,7 +2,7 @@
  * <sys/capability.h>
  *
  * Copyright (C) 1997   Aleph One
- * Copyright (C) 1997-8,2008,2019 Andrew G. Morgan <morgan@kernel.org>
+ * Copyright (C) 1997-8,2008 Andrew G. Morgan <morgan@kernel.org>
  *
  * defunct POSIX.1e Standard: 25.2 Capabilities           <sys/capability.h>
  */
@@ -47,13 +47,6 @@ typedef struct _cap_struct *cap_t;
 typedef int cap_value_t;
 
 /*
- * libcap initialized first unnamed capability of the running kernel.
- * capsh includes a runtime test to flag when this is larger than
- * what is known to libcap... Time for a new libcap release!
- */
-extern cap_value_t cap_max_bits(void);
-
-/*
  * Set identifiers
  */
 typedef enum {
@@ -74,12 +67,6 @@ typedef enum {
  * User-space capability manipulation routines
  */
 
-typedef unsigned cap_mode_t;
-#define CAP_MODE_UNCERTAIN    ((cap_mode_t) 0)
-#define CAP_MODE_NOPRIV       ((cap_mode_t) 1)
-#define CAP_MODE_PURE1E_INIT  ((cap_mode_t) 2)
-#define CAP_MODE_PURE1E       ((cap_mode_t) 3)
-
 /* libcap/cap_alloc.c */
 extern cap_t   cap_dup(cap_t);
 extern int     cap_free(void *);
@@ -95,10 +82,8 @@ extern int     cap_clear_flag(cap_t, cap_flag_t);
 /* libcap/cap_file.c */
 extern cap_t   cap_get_fd(int);
 extern cap_t   cap_get_file(const char *);
-extern uid_t   cap_get_nsowner(cap_t);
 extern int     cap_set_fd(int, cap_t);
 extern int     cap_set_file(const char *, cap_t);
-extern int     cap_set_nsowner(cap_t, uid_t);
 
 /* libcap/cap_proc.c */
 extern cap_t   cap_get_proc(void);
@@ -107,12 +92,8 @@ extern int     cap_set_proc(cap_t);
 
 extern int     cap_get_bound(cap_value_t);
 extern int     cap_drop_bound(cap_value_t);
-#define CAP_IS_SUPPORTED(cap)  (cap_get_bound(cap) >= 0)
 
-extern int     cap_get_ambient(cap_value_t);
-extern int     cap_set_ambient(cap_value_t, cap_flag_value_t);
-extern int     cap_reset_ambient(void);
-#define CAP_AMBIENT_SUPPORTED() (cap_get_ambient(CAP_CHOWN) >= 0)
+#define CAP_IS_SUPPORTED(cap)  (cap_get_bound(cap) >= 0)
 
 /* libcap/cap_extint.c */
 extern ssize_t cap_size(cap_t);
@@ -128,30 +109,9 @@ extern char *  cap_to_name(cap_value_t);
 #define CAP_DIFFERS(result, flag)  (((result) & (1 << (flag))) != 0)
 extern int     cap_compare(cap_t, cap_t);
 
-/* libcap/cap_proc.c */
-extern void cap_set_syscall(long int (*new_syscall)(long int,
-				long int, long int, long int),
-			    long int (*new_syscall6)(long int,
-				long int, long int, long int,
-				long int, long int, long int));
-
-extern int cap_set_mode(cap_mode_t flavor);
-extern cap_mode_t cap_get_mode(void);
-extern const char *cap_mode_name(cap_mode_t flavor);
-
-extern unsigned cap_get_secbits(void);
-extern int cap_set_secbits(unsigned bits);
-
-extern int cap_setuid(uid_t uid);
-extern int cap_setgroups(gid_t gid, size_t ngroups, const gid_t groups[]);
-
-/*
- * system calls - look to libc for function to system call
- * mapping. Note, libcap does not use capset directly, but permits the
- * cap_set_syscall() to redirect the system call function.
- */
-extern int capget(cap_user_header_t header, cap_user_data_t data);
-extern int capset(cap_user_header_t header, const cap_user_data_t data);
+/* system calls - look to libc for function to system call mapping */
+extern int capset(cap_user_header_t header, cap_user_data_t data);
+extern int capget(cap_user_header_t header, const cap_user_data_t data);
 
 /* deprecated - use cap_get_pid() */
 extern int capgetp(pid_t pid, cap_t cap_d);

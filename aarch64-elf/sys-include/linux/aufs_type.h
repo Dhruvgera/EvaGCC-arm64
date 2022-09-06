@@ -1,6 +1,5 @@
-/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
 /*
- * Copyright (C) 2005-2020 Junjiro R. Okajima
+ * Copyright (C) 2005-2017 Junjiro R. Okajima
  *
  * This program, aufs is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,14 +22,29 @@
 
 #include <stdint.h>
 #include <sys/types.h>
-#include <limits.h>
 
-#define AUFS_VERSION	"5.4.3-20200302"
+#include <linux/limits.h>
+
+#define AUFS_VERSION	"4.15-20180219"
 
 /* todo? move this to linux-2.6.19/include/magic.h */
 #define AUFS_SUPER_MAGIC	('a' << 24 | 'u' << 16 | 'f' << 8 | 's')
 
 /* ---------------------------------------------------------------------- */
+
+#ifdef CONFIG_AUFS_BRANCH_MAX_127
+typedef int8_t aufs_bindex_t;
+#define AUFS_BRANCH_MAX 127
+#else
+typedef int16_t aufs_bindex_t;
+#ifdef CONFIG_AUFS_BRANCH_MAX_511
+#define AUFS_BRANCH_MAX 511
+#elif defined(CONFIG_AUFS_BRANCH_MAX_1023)
+#define AUFS_BRANCH_MAX 1023
+#elif defined(CONFIG_AUFS_BRANCH_MAX_32767)
+#define AUFS_BRANCH_MAX 32767
+#endif
+#endif
 
 
 /* ---------------------------------------------------------------------- */
@@ -200,11 +214,7 @@ enum {
 
 /* borrowed from linux/include/linux/kernel.h */
 #ifndef ALIGN
-#ifdef _GNU_SOURCE
 #define ALIGN(x, a)		__ALIGN_MASK(x, (typeof(x))(a)-1)
-#else
-#define ALIGN(x, a)		(((x) + (a) - 1) & ~((a) - 1))
-#endif
 #define __ALIGN_MASK(x, mask)	(((x)+(mask))&~(mask))
 #endif
 

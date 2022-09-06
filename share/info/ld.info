@@ -1,4 +1,4 @@
-This is ld.info, produced by makeinfo version 6.7 from ld.texi.
+This is ld.info, produced by makeinfo version 6.5 from ld.texi.
 
 This file documents the GNU linker LD (Eva Binutils) version 2.39.50.
 
@@ -9432,8 +9432,3 @@ Node: GNU Free Documentation License348814
 Node: LD Index373951
 
 End Tag Table
-
-
-Local Variables:
-coding: utf-8
-End:

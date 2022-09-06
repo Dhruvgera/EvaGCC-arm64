@@ -1,4 +1,4 @@
-/* Copyright (C) 1996-2020 Free Software Foundation, Inc.
+/* Copyright (C) 1996-2018 Free Software Foundation, Inc.
    This file is part of the GNU C Library.
 
    The GNU C Library is free software; you can redistribute it and/or
@@ -13,13 +13,9 @@
 
    You should have received a copy of the GNU Lesser General Public
    License along with the GNU C Library; if not, see
-   <https://www.gnu.org/licenses/>.  */
+   <http://www.gnu.org/licenses/>.  */
 
-/* Declaration of types and functions for "shadow" storage of hashed
-   passphrases.  The shadow database is like the user database, but is
-   only accessible with special privileges, so that malicious users
-   cannot retrieve everyone else's hashed passphrase to brute-force at
-   their convenience.  */
+/* Declaration of types and functions for shadow password suite.  */
 
 #ifndef _SHADOW_H
 #define _SHADOW_H	1
@@ -39,11 +35,11 @@
 
 __BEGIN_DECLS
 
-/* A record in the shadow database.  */
+/* Structure of the password file.  */
 struct spwd
   {
     char *sp_namp;		/* Login name.  */
-    char *sp_pwdp;		/* Hashed passphrase.  */
+    char *sp_pwdp;		/* Encrypted password.  */
     long int sp_lstchg;		/* Date of last change.  */
     long int sp_min;		/* Minimum number of days between changes.  */
     long int sp_max;		/* Maximum number of days between changes.  */
@@ -105,7 +101,7 @@ extern struct spwd *sgetspent (const char *__string);
    therefore not marked with __THROW.  */
 extern struct spwd *fgetspent (FILE *__stream);
 
-/* Write line containing shadow entry to stream.
+/* Write line containing shadow password entry to stream.
 
    This function is not part of POSIX and therefore no official
    cancellation point.  But due to similarity with an POSIX interface
@@ -141,10 +137,10 @@ extern int fgetspent_r (FILE *__stream, struct spwd *__result_buf,
 /* The simple locking functionality provided here is not suitable for
    multi-threaded applications.  */
 
-/* Request exclusive access to /etc/passwd and /etc/shadow.  */
+/* Protect password file against multi writers.  */
 extern int lckpwdf (void) __THROW;
 
-/* Release exclusive access to /etc/passwd and /etc/shadow.  */
+/* Unlock password file.  */
 extern int ulckpwdf (void) __THROW;
 
 __END_DECLS

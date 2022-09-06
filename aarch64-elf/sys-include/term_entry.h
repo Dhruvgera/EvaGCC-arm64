@@ -1,6 +1,5 @@
 /****************************************************************************
- * Copyright 2018-2019,2020 Thomas E. Dickey                                *
- * Copyright 1998-2015,2017 Free Software Foundation, Inc.                  *
+ * Copyright (c) 1998-2015,2017 Free Software Foundation, Inc.              *
  *                                                                          *
  * Permission is hereby granted, free of charge, to any person obtaining a  *
  * copy of this software and associated documentation files (the            *
@@ -33,7 +32,7 @@
  *     and: Thomas E. Dickey                        1998-on                 *
  ****************************************************************************/
 
-/* $Id: term_entry.h,v 1.59 2020/02/02 23:34:34 tom Exp $ */
+/* $Id: term_entry.h,v 1.55 2017/04/06 22:45:34 tom Exp $ */
 
 /*
  *	term_entry.h -- interface to entry-manipulation code
@@ -47,7 +46,6 @@
 extern "C" {
 #endif
 
-#include <curses.h>
 #include <term.h>
 
 /*
@@ -209,24 +207,17 @@ extern NCURSES_EXPORT(void) _nc_trace_xnames (TERMTYPE *);
 #endif /* NCURSES_INTERNALS */
 
 /*
- * These entrypoints were used by tack before 1.08.
+ * These entrypoints are used by tack.
  */
 
-#undef  NCURSES_TACK_1_08
-#ifdef  NCURSES_INTERNALS
-#define NCURSES_TACK_1_08 /* nothing */
-#else
-#define NCURSES_TACK_1_08 GCC_DEPRECATED("upgrade to tack 1.08")
-#endif
-
 /* alloc_ttype.c: elementary allocation code */
-extern NCURSES_EXPORT(void) _nc_copy_termtype (TERMTYPE *, const TERMTYPE *) NCURSES_TACK_1_08;
+extern NCURSES_EXPORT(void) _nc_copy_termtype (TERMTYPE *, const TERMTYPE *);
 
 /* lib_acs.c */
-extern NCURSES_EXPORT(void) _nc_init_acs (void) NCURSES_TACK_1_08;	/* corresponds to traditional 'init_acs()' */
+extern NCURSES_EXPORT(void) _nc_init_acs (void);	/* corresponds to traditional 'init_acs()' */
 
 /* free_ttype.c: elementary allocation code */
-extern NCURSES_EXPORT(void) _nc_free_termtype (TERMTYPE *) NCURSES_TACK_1_08;
+extern NCURSES_EXPORT(void) _nc_free_termtype (TERMTYPE *);
 
 #ifdef __cplusplus
 }
