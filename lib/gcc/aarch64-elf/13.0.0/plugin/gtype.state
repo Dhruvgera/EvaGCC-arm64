@@ -4,7 +4,7 @@
 ;;; Don't parse this file wihout knowing GCC gengtype internals.
 ;;; This file should be parsed by the same gengtype which wrote it.
 
-(!version  "13.0.0 20220921 (Bleeding Edge)")
+(!version  "13.0.0 20220922 (Bleeding Edge)")
 (!srcdir  "../../gcc/gcc")
 (!languages 10 ada c cp d fortran go jit lto objc objcp)
 (!fileslist 225 0
@@ -27461,7 +27461,7 @@
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 1970 nil  gc_unused "anonymous:../../gcc/gcc/c/c-parser.cc:7843"nil 
+ (!type struct 1970 nil  gc_unused "anonymous:../../gcc/gcc/c/c-parser.cc:7844"nil 
   (!fields 0 )
   nil 0 nil nil )
  
@@ -29822,15 +29822,15 @@
   nil 0 nil nil )
  
  (!type struct 2200 nil  gc_used "macro_export"
-  (!srcfileloc  "cp/module.cc" 16705)
+  (!srcfileloc  "cp/module.cc" 16709)
   (!fields 2 
    (!pair  "def"
     (!type already_seen 19)
-    (!srcfileloc  "cp/module.cc" 16698)
+    (!srcfileloc  "cp/module.cc" 16702)
     nil )
    (!pair  "undef_loc"
     (!type already_seen 2)
-    (!srcfileloc  "cp/module.cc" 16699)
+    (!srcfileloc  "cp/module.cc" 16703)
     nil )
   )
   nil 516 nil nil )
@@ -29844,15 +29844,15 @@
    (!type already_seen 2202)
   )
   gc_pointed_to "vec<macro_export,va_gc>"
-  (!srcfileloc  "cp/module.cc" 16862)
+  (!srcfileloc  "cp/module.cc" 16866)
   (!fields 2 
    (!pair  "va_gc"
     (!type already_seen 78)
-    (!srcfileloc  "cp/module.cc" 16862)
+    (!srcfileloc  "cp/module.cc" 16866)
     nil )
    (!pair  "macro_export"
     (!type already_seen 2200)
-    (!srcfileloc  "cp/module.cc" 16862)
+    (!srcfileloc  "cp/module.cc" 16866)
     nil )
   )
  )
@@ -31236,11 +31236,11 @@
   nil )
  (!pair  "vec<macro_export,va_gc>"
   (!type already_seen 2202)
-  (!srcfileloc  "cp/module.cc" 16862)
+  (!srcfileloc  "cp/module.cc" 16866)
   nil )
  (!pair  "macro_export"
   (!type already_seen 2200)
-  (!srcfileloc  "cp/module.cc" 16701)
+  (!srcfileloc  "cp/module.cc" 16705)
   nil )
  (!pair  "note_defs_table_t"
   (!type already_seen 2196)
@@ -31858,7 +31858,7 @@
   nil )
  (!pair  "c_expr_t"
   (!type already_seen 1897)
-  (!srcfileloc  "c/c-tree.h" 178)
+  (!srcfileloc  "c/c-tree.h" 179)
   nil )
  (!pair  "builtin_type"
   (!type already_seen 2)
@@ -35836,11 +35836,11 @@
  )
  (!pair  "headers"
   (!type already_seen 385)
-  (!srcfileloc  "cp/module.cc" 16866)
+  (!srcfileloc  "cp/module.cc" 16870)
   nil )
  (!pair  "macro_exports"
   (!type already_seen 2203)
-  (!srcfileloc  "cp/module.cc" 16862)
+  (!srcfileloc  "cp/module.cc" 16866)
   nil )
  (!pair  "note_defs"
   (!type already_seen 2197)
@@ -37985,19 +37985,19 @@
   nil )
  (!pair  "aarch64_bf16_ptr_type_node"
   (!type already_seen 23)
-  (!srcfileloc  "config/aarch64/aarch64.h" 1311)
+  (!srcfileloc  "config/aarch64/aarch64.h" 1325)
   nil )
  (!pair  "aarch64_bf16_type_node"
   (!type already_seen 23)
-  (!srcfileloc  "config/aarch64/aarch64.h" 1310)
+  (!srcfileloc  "config/aarch64/aarch64.h" 1324)
   nil )
  (!pair  "aarch64_fp16_ptr_type_node"
   (!type already_seen 23)
-  (!srcfileloc  "config/aarch64/aarch64.h" 1306)
+  (!srcfileloc  "config/aarch64/aarch64.h" 1320)
   nil )
  (!pair  "aarch64_fp16_type_node"
   (!type already_seen 23)
-  (!srcfileloc  "config/aarch64/aarch64.h" 1305)
+  (!srcfileloc  "config/aarch64/aarch64.h" 1319)
   nil )
  (!pair  "saved_line_table"
   (!type already_seen 696)
