@@ -2317,7 +2317,7 @@ enum
 
 /* Define CC and CFLAGS which were used to build this version of GMP */
 #define __GMP_CC "x86_64-linux-gnu-gcc"
-#define __GMP_CFLAGS "-g -O2 -fdebug-prefix-map=/build/gmp-LIslSw/gmp-6.1.2+dfsg=. -fstack-protector-strong -Wformat -Werror=format-security -O3"
+#define __GMP_CFLAGS "-g -O2 -fdebug-prefix-map=/build/gmp-8roCIV/gmp-6.1.2+dfsg=. -fstack-protector-strong -Wformat -Werror=format-security -O3"
 
 /* Major version number is the value of __GNU_MP__ too, above. */
 #define __GNU_MP_VERSION            6
