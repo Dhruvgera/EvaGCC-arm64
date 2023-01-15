@@ -1,5 +1,5 @@
 /* Target-dependent costs for expmed.cc.
-   Copyright (C) 1987-2022 Free Software Foundation, Inc.
+   Copyright (C) 1987-2023 Free Software Foundation, Inc.
 
 This file is part of GCC.
 
@@ -710,8 +710,9 @@ extern rtx expand_shift (enum tree_code, machine_mode, rtx, poly_int64, rtx,
 extern rtx maybe_expand_shift (enum tree_code, machine_mode, rtx, int, rtx,
 			       int);
 #ifdef GCC_OPTABS_H
-extern rtx expand_divmod (int, enum tree_code, machine_mode, rtx, rtx,
-			  rtx, int, enum optab_methods = OPTAB_LIB_WIDEN);
+extern rtx expand_divmod (int, enum tree_code, machine_mode, tree, tree,
+			  rtx, rtx, rtx, int,
+			  enum optab_methods = OPTAB_LIB_WIDEN);
 #endif
 #endif
 

@@ -52,6 +52,10 @@ extern bool aarch64_plus_operand (rtx, machine_mode);
 extern bool aarch64_plushi_immediate (rtx, machine_mode);
 extern bool aarch64_plushi_operand (rtx, machine_mode);
 extern bool aarch64_pluslong_immediate (rtx, machine_mode);
+extern bool aarch64_sminmax_immediate (rtx, machine_mode);
+extern bool aarch64_sminmax_operand (rtx, machine_mode);
+extern bool aarch64_uminmax_immediate (rtx, machine_mode);
+extern bool aarch64_uminmax_operand (rtx, machine_mode);
 extern bool aarch64_pluslong_strict_immedate (rtx, machine_mode);
 extern bool aarch64_sve_scalar_inc_dec_immediate (rtx, machine_mode);
 extern bool aarch64_sve_addvl_addpl_immediate (rtx, machine_mode);
@@ -142,6 +146,7 @@ extern bool aarch64_sve_general_operand (rtx, machine_mode);
 extern bool aarch64_sve_struct_memory_operand (rtx, machine_mode);
 extern bool aarch64_sve_struct_nonimmediate_operand (rtx, machine_mode);
 extern bool aarch64_sve_dup_operand (rtx, machine_mode);
+extern bool aarch64_sve_dup_ld1rq_operand (rtx, machine_mode);
 extern bool aarch64_sve_ptrue_svpattern_immediate (rtx, machine_mode);
 extern bool aarch64_sve_arith_immediate (rtx, machine_mode);
 extern bool aarch64_sve_sub_arith_immediate (rtx, machine_mode);
@@ -223,6 +228,7 @@ enum constraint_num
   CONSTRAINT_L,
   CONSTRAINT_M,
   CONSTRAINT_N,
+  CONSTRAINT_O,
   CONSTRAINT_m,
   CONSTRAINT_o,
   CONSTRAINT_Q,
@@ -258,6 +264,7 @@ enum constraint_num
   CONSTRAINT_Y,
   CONSTRAINT_Ush,
   CONSTRAINT_Usa,
+  CONSTRAINT_Usm,
   CONSTRAINT_Usw,
   CONSTRAINT_Uss,
   CONSTRAINT_Usn,
@@ -274,6 +281,7 @@ enum constraint_num
   CONSTRAINT_Up3,
   CONSTRAINT_Uph,
   CONSTRAINT_Ufc,
+  CONSTRAINT_Uum,
   CONSTRAINT_Uvi,
   CONSTRAINT_Do,
   CONSTRAINT_Db,

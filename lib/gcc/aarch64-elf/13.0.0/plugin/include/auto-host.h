@@ -212,6 +212,12 @@
 #endif
 
 
+/* If --with-multiarch option is used */
+#ifndef USED_FOR_TARGET
+/* #undef ENABLE_MULTIARCH */
+#endif
+
+
 /* Define to 1 if translation of program messages to the user's native
    language is requested. */
 #ifndef USED_FOR_TARGET
@@ -1452,6 +1458,12 @@
 #endif
 
 
+/* Define to 1 if you have the `getauxval' function. */
+#ifndef USED_FOR_TARGET
+#define HAVE_GETAUXVAL 1
+#endif
+
+
 /* Define to 1 if you have the `getchar_unlocked' function. */
 #ifndef USED_FOR_TARGET
 #define HAVE_GETCHAR_UNLOCKED 1
@@ -2679,7 +2691,3 @@
 /* #undef vfork */
 #endif
 
-/* Define to 1 if you have the `getauxval' function. */
-#ifndef USED_FOR_TARGET
-#define HAVE_GETAUXVAL 1
-#endif
